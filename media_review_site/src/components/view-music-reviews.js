@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-
+import { useNavigate } from 'react-router-dom';
 
 const ViewMusicReviews = () => {
 
+    const navigate = useNavigate(); 
     const [musicReviews, setMusicReviews] = useState([]); //state for music reviews
     useEffect(() => {
         axios.get('http://localhost:4000/api/getMusicReviews') 
@@ -41,6 +42,7 @@ const ViewMusicReviews = () => {
                                     allow="autoplay"
                                     src={`https://w.soundcloud.com/player/?url=${review.soundcloud}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}>
                                 </iframe>
+                                <button onClick={() => navigate(`/edit-review/music/${review._id}`)}>Edit</button>
                             </Card.Body>
                         </Card>
                     </div>

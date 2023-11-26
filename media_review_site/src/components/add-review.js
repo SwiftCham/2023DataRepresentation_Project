@@ -110,7 +110,7 @@ const AddReviews = () => {
         const renderMusicForm = (e) => {
             return (
                 <div>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} className="form-input-group">
                         <Form.Group controlId="musicForm">
                             <Form.Label>Music Title</Form.Label>
                             <Form.Control type="text" placeholder="Enter music title" onChange={(e) => setTitle(e.target.value)} />

@@ -65,40 +65,6 @@ app.use((req, res, next) => {
 
 
 
-
-
-
-
-
-
-//get all movie reviews
-app.get('/api/getMovieReviews', async (req, res) => {
-    try {
-        const movieReviews = await MovieReviewModel.find(); //find all movie reviews
-        res.send(movieReviews); //send movie reviews to front end
-    } catch (err) {
-        console.log(err);
-    }
-});
-
-//get all music reviews
-app.get('/api/getMusicReviews', async (req, res) => {
-    try {
-        const musicReviews = await MusicReviewModel.find(); //find all music reviews
-        res.send(musicReviews); //send music reviews to front end
-    } catch (err) {
-        console.log(err);
-    }
-});
-
-
-
-
-
-
-
-
-
 //Add movie review
 app.post('/api/addMovieReview', async (req, res) => {
     try {
@@ -110,6 +76,38 @@ app.post('/api/addMovieReview', async (req, res) => {
         res.status(500).send("Error adding movie review");
     }
 });
+
+//get all movie reviews
+app.get('/api/getMovieReviews', async (req, res) => {
+    try {
+        const movieReviews = await MovieReviewModel.find(); //find all movie reviews
+        res.send(movieReviews); //send movie reviews to front end
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+//update movie review from edit review page
+app.put('/api/updateMovieReview/:id', async (req, res) => {
+    try {
+        const updatedReview = await MovieReviewModel.findByIdAndUpdate(
+            req.params.id, //Get the ID from the URL parameters
+            req.body, 
+            { new: true } //Return the updated document
+        );
+        if (!updatedReview) {
+            return res.status(404).send('No review with that ID found.');
+        }
+        res.send(updatedReview);
+    } catch (err) {
+        console.error("Error updating movie review:", err);
+        res.status(500).send("Error updating movie review");
+    }
+});
+
+
+
+
 
 //Add music review
 app.post('/api/addMusicReview', async (req, res) => {
@@ -123,8 +121,33 @@ app.post('/api/addMusicReview', async (req, res) => {
     }
 });
 
+//get all music reviews
+app.get('/api/getMusicReviews', async (req, res) => {
+    try {
+        const musicReviews = await MusicReviewModel.find(); //find all music reviews
+        res.send(musicReviews); //send music reviews to front end
+    } catch (err) {
+        console.log(err);
+    }
+});
 
-
+//update music review from edit review page
+app.put('/api/updateMusicReview/:id', async (req, res) => {
+    try {
+        const updatedReview = await MusicReviewModel.findByIdAndUpdate(
+            req.params.id, // Get the ID from the URL parameters
+            req.body, // Use the body of the request for the update
+            { new: true } // Return the updated document
+        );
+        if (!updatedReview) {
+            return res.status(404).send('No review with that ID found.');
+        }
+        res.send(updatedReview);
+    } catch (err) {
+        console.error("Error updating music review:", err);
+        res.status(500).send("Error updating music review");
+    }
+});
 
 
 

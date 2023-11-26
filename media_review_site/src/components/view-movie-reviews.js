@@ -2,11 +2,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
+import { useNavigate } from 'react-router-dom';
+import EditReview from './edit-review';
 
 
 // Define the MvReviews component
 const ViewMovieReviews = () => {
 
+    const navigate = useNavigate(); 
     const [movieReviews, setMovieReviews] = useState([]); //state for movie reviews
     useEffect(() => {
         axios.get('http://localhost:4000/api/getMovieReviews')
@@ -55,7 +58,8 @@ const ViewMovieReviews = () => {
                                         }
                                     })()
                                 }
-                            </Card.Body>
+                                 <button onClick={() => navigate(`/edit-review/movie/${review._id}`)}>Edit</button> 
+                            </Card.Body>  
                         </Card>
                     </div>
                 ))}

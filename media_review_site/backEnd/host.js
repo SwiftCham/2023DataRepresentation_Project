@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const path = require('path');
 const bodyParser = require("body-parser");
 const app = express();
 const port = process.env.PORT || 4000;
@@ -13,12 +12,18 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(bodyParser.json());
 
+//database connection string
+require('dotenv').config();
+const uri = `mongodb+srv://${encodeURIComponent(username)}:${encodeURIComponent(password)}@${host}`; //pulls database credentials securely from .env    
 
 //connect to database
 async function mongoConnect() {
     try {
-        //coonection string: mongodb+srv://benjaminstacey15:<password>@cluster0.lqmsp7v.mongodb.net/
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://Admin:root@cluster0.lqmsp7v.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
+        // Connect to the MongoDB cluster using the connection string
+        await mongoose.connect(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        })
         console.log("Connected to database"); //log to console if connected
     } catch (err) {
         console.log(err);

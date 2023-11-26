@@ -29,7 +29,7 @@ const AddReviews = () => {
     const handleSubmit = (e) => {
 
         e.preventDefault(); //prevents page from refreshing
-
+        //if statement to check if review type is movie or music
             if (reviewType === 'movie') {
                 const movieReview = {
                     title,
@@ -43,7 +43,7 @@ const AddReviews = () => {
                 axios.post('http://localhost:4000/api/addMovieReview', movieReview)
                     .then((res) => {
                         console.log(res.data);
-                        navigate("/mvReviews");
+                        navigate("/view-movie-reviews"); //navigates to view movie reviews page
                     }).catch((error) => {
                         console.error('Error posting movie review:', error);
                     });
@@ -63,13 +63,13 @@ const AddReviews = () => {
                 axios.post('http://localhost:4000/api/addMusicReview', musicReview)
                     .then((res) => {
                         console.log(res.data);
-                        navigate("/msReviews");
+                        navigate("/view-music-reviews"); //navigates to view music reviews page
                     }).catch((error) => {
                         console.error('Error posting music review:', error);
                     });
             }
         }
-
+        //both functions render a form to be filled out by the user and submitted under the correct review type, once that review type has been specifed by the user
         const renderMovieForm = (e) => {
             return (
                 <div>
@@ -108,7 +108,6 @@ const AddReviews = () => {
         } 
 
         const renderMusicForm = (e) => {
-
             return (
                 <div>
                     <Form onSubmit={handleSubmit}>
@@ -155,6 +154,7 @@ const AddReviews = () => {
             );
         }
 
+        //returns a form to be filled out by the user and submitted under the correct review type
         return (
             <Container>
                 <Form.Select aria-label="Review Type" onChange={(e) => setReviewType(e.target.value)}
@@ -165,8 +165,7 @@ const AddReviews = () => {
                 </Form.Select>
                 {reviewType === 'movie' ? renderMovieForm() : renderMusicForm()}
             </Container>
-
         );
-
     }
+
     export default AddReviews;

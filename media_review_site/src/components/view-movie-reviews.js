@@ -3,18 +3,18 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
-import EditReview from './edit-review';
+
 
 
 // Define the MvReviews component
 const ViewMovieReviews = () => {
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const [movieReviews, setMovieReviews] = useState([]); //state for movie reviews
     useEffect(() => {
         axios.get('http://localhost:4000/api/getMovieReviews')
             .then((res) => {
-                setMovieReviews(res.data); 
+                setMovieReviews(res.data);
             }).catch((error) => {
                 console.error('Error fetching data:', error);
             });
@@ -27,13 +27,13 @@ const ViewMovieReviews = () => {
                 {/* Displays movie in the format title, genre, review, rating and a trailer */}
                 {movieReviews.map((review) => (
                     <div className="col-sm-4" key={review._id}>
-                        <Card className="h-100"> 
+                        <Card className="h-100">
                             <Card.Body>
                                 <Card.Title>{review.title}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">{review.genre}</Card.Subtitle>
                                 <Card.Text>
                                     {review.review}
-                                    <br /> 
+                                    <br />
                                     <strong>Rating:</strong> {review.rating}
                                 </Card.Text>
                                 {
@@ -58,8 +58,9 @@ const ViewMovieReviews = () => {
                                         }
                                     })()
                                 }
-                                 <button onClick={() => navigate(`/edit-review/movie/${review._id}`)}>Edit</button> 
-                            </Card.Body>  
+                                <button onClick={() => navigate(`/edit-review/movie/${review._id}`)}>Edit</button>
+                                <button onClick={() => navigate(`/delete-review/movie/${review._id}`)}>Delete</button>
+                            </Card.Body>
                         </Card>
                     </div>
                 ))}

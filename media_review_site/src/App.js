@@ -15,6 +15,7 @@ import ViewMovieReviews from './components/view-movie-reviews';
 import ViewMusicReviews from './components/view-music-reviews';
 import AddReviews from './components/add-review';
 import EditReview from './components/edit-review';
+import DeleteReview from './components/delete-review';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/view-music-reviews" element={<ViewMusicReviews />} />
             <Route path="/add-review" element={<AddReviews />} />
             <Route path="/edit-review/:type/:id" element={<EditReview />} />
+            <Route path="/delete-review/:type/:id" element={<DeleteReview />} />  
           </Routes>
         </div>
       </>

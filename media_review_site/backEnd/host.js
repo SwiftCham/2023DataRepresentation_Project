@@ -117,19 +117,16 @@ app.put('/api/updateMovieReview/:id', async (req, res) => {
 
 
 //Add music review
-app.delete('/api/deleteMovieReview/:id', async (req, res) => {
+app.post('/api/addMusicReview', async (req, res) => {
     try {
-        const result = await MusicReviewModel.findByIdAndDelete(req.params.id);
-        if (!result) {
-            return res.status(404).json({ message: 'No music review found with the given ID' });
-        }
-        res.status(200).json({ message: 'Music review deleted successfully' });
-    } catch (error) {
-        console.error("Error deleting music review:", error.message);
-        res.status(500).json({ message: 'Error deleting music review', error: error.message });
+        const newMusicReview = new MusicReviewModel(req.body); //create new music review
+        const savedReview = await newMusicReview.save(); //save music review
+        res.status(201).send(savedReview); //send saved review to front end review page
+    } catch (err) {
+        console.error("Error adding music review:", err);
+        res.status(500).send("Error adding music review");
     }
 });
-
 
 //get all music reviews
 app.get('/api/getMusicReviews', async (req, res) => {

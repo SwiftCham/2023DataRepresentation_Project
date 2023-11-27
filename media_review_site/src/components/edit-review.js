@@ -10,7 +10,7 @@ const EditReview = () => {
     const navigate = useNavigate();
 
 
-
+    // This will fetch the review data from the API
     useEffect(() => {
         const apiEndpoint = type === 'movie' ? `http://localhost:4000/api/getMovieReview/${id}` : `http://localhost:4000/api/getMusicReview/${id}`;
         axios.get(apiEndpoint)

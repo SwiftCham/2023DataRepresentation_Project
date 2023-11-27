@@ -115,7 +115,22 @@ app.put('/api/updateMovieReview/:id', async (req, res) => {
 });
 
 //delete movie review
-
+app.delete('/api/deleteMovieReview/:id', async (req, res) => {
+    try {
+        const deletedReview = await MovieReviewModel.findByIdAndDelete(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+        if (!deletedReview) {
+            return res.status(404).send('No review with that ID found.');
+        }
+        res.send(deletedReview);
+    } catch (err) {
+        console.error("Error deleting movie review:", err);
+        res.status(500).send("Error deleting movie review");
+    }
+});
 
 
 
@@ -151,9 +166,9 @@ app.put('/api/updateMusicReview/:id', async (req, res) => {
             { new: true } // Return the updated document
         );
         if (!updatedReview) {
-            return res.status(404).send('No review with that ID found.');
+            return res.status(404).send('No review with that ID found.'); //if no review found, send error
         }
-        res.send(updatedReview);
+        res.send(updatedReview); //send updated review to front end
     } catch (err) {
         console.error("Error updating music review:", err);
         res.status(500).send("Error updating music review");
@@ -161,7 +176,22 @@ app.put('/api/updateMusicReview/:id', async (req, res) => {
 });
 
 //delete music review
-
+app.delete('/api/deleteMusicReview/:id', async (req, res) => {
+    try {
+        const deletedReview = await MusicReviewModel.findByIdAndDelete( //find and delete music review based on ID
+            req.params.id, // Get the ID from the URL parameters
+            req.body, // Use the body of the request for the update
+            { new: true } // Return the updated document
+        );
+        if (!deletedReview) {
+            return res.status(404).send('No review with that ID found.'); //if no review found, send error
+        }
+        res.send(deletedReview); //send deleted review to front end
+    } catch (err) {
+        console.error("Error deleting music review:", err);
+        res.status(500).send("Error deleting music review");
+    }
+});
 
 
 

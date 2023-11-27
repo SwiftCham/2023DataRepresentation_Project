@@ -40,4 +40,40 @@
 .form-input-group {
   max-width: 500px; 
   margin: auto; 
+  color: pink;
+  background-color: rgb(35, 35, 35);
+}
+
+.delete-button {
+  background-color: rgb(35, 35, 35);
+  color: red;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.edit-button {
+  background-color: rgb(35, 35, 35);
+  color: rgba(7, 235, 231, 0.832);
+  border: 1px solid rgba(7, 235, 231, 0.832);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+}
+
+
+.navbar {
+  background-color:rgba(235, 148, 7, 0.832);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.reviewPage {
+  background-color: rgb(35, 35, 35);
+  color: rgba(235, 148, 7, 0.832);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
 }

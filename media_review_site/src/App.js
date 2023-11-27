@@ -22,7 +22,7 @@ function App() {
   return (
     <BrowserRouter>
       <>
-        <Navbar bg="dark" variant="dark">
+        <Navbar className='navbar'>
           <Container>
             <Navbar.Brand as={Link} to="/">Media Review Site</Navbar.Brand>
             <Nav className="me-auto">

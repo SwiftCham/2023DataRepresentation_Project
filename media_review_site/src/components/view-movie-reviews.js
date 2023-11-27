@@ -58,8 +58,8 @@ const ViewMovieReviews = () => {
                                         }
                                     })()
                                 }
-                                <button onClick={() => navigate(`/edit-review/movie/${review._id}`)}>Edit</button>
-                                <button onClick={() => navigate(`/delete-review/movie/${review._id}`)}>Delete</button>
+                                <button className='edit-button' onClick={() => navigate(`/edit-review/movie/${review._id}`)}>Edit</button>
+                                <button className='delete-button' onClick={() => navigate(`/delete-review/movie/${review._id}`)}>Delete</button>
                             </Card.Body>
                         </Card>
                     </div>

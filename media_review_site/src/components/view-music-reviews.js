@@ -43,8 +43,8 @@ const ViewMusicReviews = () => {
                                     allow="autoplay"
                                     src={`https://w.soundcloud.com/player/?url=${review.soundcloud}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true`}>
                                 </iframe>
-                                <button onClick={() => navigate(`/edit-review/music/${review._id}`)}>Edit</button>
-                                <button onClick={() => navigate(`/delete-review/music/${review._id}`)}>Delete</button>
+                                <button className='edit-button' onClick={() => navigate(`/edit-review/music/${review._id}`)}>Edit</button>
+                                <button className='delete-button' onClick={() => navigate(`/delete-review/music/${review._id}`)}>Delete</button>
                             </Card.Body>
                         </Card>
                     </div>

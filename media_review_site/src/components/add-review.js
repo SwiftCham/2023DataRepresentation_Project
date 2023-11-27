@@ -73,7 +73,7 @@ const AddReviews = () => {
         const renderMovieForm = (e) => {
             return (
                 <div>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} className='form-input-group'>
                         <Form.Group controlId="movieForm">
                             <Form.Label>Movie Title</Form.Label>
                             <Form.Control type="text" placeholder="Enter movie title" onChange={(e) => setTitle(e.target.value)} />

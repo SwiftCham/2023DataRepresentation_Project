@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
+require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -12,18 +13,21 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(bodyParser.json());
 
+//database credentials
+const username = process.env.DB_USERNAME; //database username
+const password = process.env.DB_PASSWORD; //database password
+const host = process.env.DB_HOST; //database host
+const database = process.env.DB_NAME; //database name
+
 //database connection string
 require('dotenv').config();
-const uri = `mongodb+srv://${encodeURIComponent(username)}:${encodeURIComponent(password)}@${host}`; //pulls database credentials securely from .env    
+const uri = `mongodb+srv://${encodeURIComponent(username)}:${encodeURIComponent(password)}@${host}/${database}?retryWrites=true&w=majority`; //pulls database credentials securely from .env    
 
 //connect to database
 async function mongoConnect() {
     try {
         // Connect to the MongoDB cluster using the connection string
-        await mongoose.connect(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
+        await mongoose.connect(uri);
         console.log("Connected to database"); //log to console if connected
     } catch (err) {
         console.log(err);

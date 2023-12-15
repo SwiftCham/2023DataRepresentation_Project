@@ -6,7 +6,7 @@ import axios from 'axios';
 const DeleteReview = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
-    const [review, setReview] = useState({ title: '', genre: '', rating: 0, review: '', artist: '', albumCover: '', soundcloud: '', trailer: '' });
+    const [review, setReview] = useState({ title: '', genre: '', rating: 0, review: '', artist: '', albumCover: '', soundcloud: '', trailer: '' }); //state for review
     const [loading, setLoading] = useState(true);
     
 

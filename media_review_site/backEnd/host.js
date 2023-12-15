@@ -10,7 +10,7 @@ const port = process.env.PORT || 4000;
 //middleware
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //database credentials
@@ -33,7 +33,7 @@ async function mongoConnect() {
         console.log(err);
         process.exit(1);
     }
-}mongoConnect();
+} mongoConnect();
 
 //create schema for movie reviews
 const movieReviewSchema = new mongoose.Schema({
@@ -66,8 +66,8 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // Update to match the domain you will make the request from
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'); // Add any additional headers you need to support here
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Add any additional methods you need to support here
-    next(); 
-  });
+    next();
+});
 
 
 
@@ -101,7 +101,7 @@ app.put('/api/updateMovieReview/:id', async (req, res) => {
     try {
         const updatedReview = await MovieReviewModel.findByIdAndUpdate(
             req.params.id, //Get the ID from the URL parameters
-            req.body, 
+            req.body,
             { new: true } //Return the updated document
         );
         if (!updatedReview) {
@@ -131,7 +131,6 @@ app.delete('/api/deleteMovieReview/:id', async (req, res) => {
         res.status(500).send("Error deleting movie review");
     }
 });
-
 
 
 
@@ -194,7 +193,21 @@ app.delete('/api/deleteMusicReview/:id', async (req, res) => {
 });
 
 
+//search reviews
+// Endpoint to search reviews
+app.get('/api/searchReviews', async (req, res) => {
+    const query = req.query.q; // Get the query from the URL parameters
+    try {
+        // Search both movie and music reviews for the query
+        const movieResults = await MovieReviewModel.find({ title: new RegExp(query, 'i') });
+        const musicResults = await MusicReviewModel.find({ title: new RegExp(query, 'i') });
 
+        res.send({ movies: movieResults, music: musicResults }); // Send the results back to the client
+    } catch (err) {
+        console.error("Error searching reviews:", err);
+        res.status(500).send("Error searching reviews");
+    }
+});
 
 // Start the server and handle shutdown, allowing safe closing of the server
 const server = app.listen(port, () => {

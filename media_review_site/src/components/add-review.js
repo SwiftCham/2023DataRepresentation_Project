@@ -30,142 +30,142 @@ const AddReviews = () => {
 
         e.preventDefault(); //prevents page from refreshing
         //if statement to check if review type is movie or music
-            if (reviewType === 'movie') {
-                const movieReview = {
-                    title,
-                    genre,
-                    rating,
-                    review,
-                    trailer
-                }
-
-                // Corrected API endpoint
-                axios.post('http://localhost:4000/api/addMovieReview', movieReview)
-                    .then((res) => {
-                        console.log(res.data);
-                        navigate("/view-movie-reviews"); //navigates to view movie reviews page
-                    }).catch((error) => {
-                        console.error('Error posting movie review:', error);
-                    });
-
-            } else if (reviewType === 'music') {
-                const musicReview = {
-                    title,
-                    artist,
-                    genre,
-                    rating,
-                    review,
-                    albumCover,
-                    soundcloud
-                }
-
-                // Corrected API endpoint
-                axios.post('http://localhost:4000/api/addMusicReview', musicReview)
-                    .then((res) => {
-                        console.log(res.data);
-                        navigate("/view-music-reviews"); //navigates to view music reviews page
-                    }).catch((error) => {
-                        console.error('Error posting music review:', error);
-                    });
+        if (reviewType === 'movie') {
+            const movieReview = {
+                title,
+                genre,
+                rating,
+                review,
+                trailer
             }
+
+            //API call to post movie review
+            axios.post('http://localhost:4000/api/addMovieReview', movieReview)
+                .then((res) => {
+                    console.log(res.data);
+                    navigate("/view-movie-reviews"); //navigates to view movie reviews page
+                }).catch((error) => {
+                    console.error('Error posting movie review:', error);
+                });
+
+        } else if (reviewType === 'music') {
+            const musicReview = {
+                title,
+                artist,
+                genre,
+                rating,
+                review,
+                albumCover,
+                soundcloud
+            }
+
+            //API call to post music review
+            axios.post('http://localhost:4000/api/addMusicReview', musicReview)
+                .then((res) => {
+                    console.log(res.data);
+                    navigate("/view-music-reviews"); //navigates to view music reviews page
+                }).catch((error) => {
+                    console.error('Error posting music review:', error);
+                });
         }
-        //both functions render a form to be filled out by the user and submitted under the correct review type, once that review type has been specifed by the user
-        const renderMovieForm = (e) => {
-            return (
-                <div>
-                    <Form onSubmit={handleSubmit} className='form-input-group'>
-                        <Form.Group controlId="movieForm">
-                            <Form.Label>Movie Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter movie title" onChange={(e) => setTitle(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="movieForm">
-                            <Form.Label>Genre</Form.Label>
-                            <Form.Control type="text" placeholder="Enter genre" onChange={(e) => setGenre(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="movieForm">
-                            <Form.Label>Rating</Form.Label>
-                            <Form.Control type="number" placeholder="Enter rating" onChange={(e) => setRating(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="movieForm">
-                            <Form.Label>Review</Form.Label>
-                            <Form.Control type="text" placeholder="Enter review" onChange={(e) => setReview(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="movieForm">
-                            <Form.Label>Trailer</Form.Label>
-                            <Form.Control type="text" placeholder="Enter trailer" onChange={(e) => setTrailer(e.target.value)} />
-                        </Form.Group>
-
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                </div>
-            );
-        } 
-
-        const renderMusicForm = (e) => {
-            return (
-                <div>
-                    <Form onSubmit={handleSubmit} className="form-input-group">
-                        <Form.Group controlId="musicForm">
-                            <Form.Label>Music Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter music title" onChange={(e) => setTitle(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="musicForm">
-                            <Form.Label>Artist</Form.Label>
-                            <Form.Control type="text" placeholder="Enter artist" onChange={(e) => setArtist(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="musicForm">
-                            <Form.Label>Genre</Form.Label>
-                            <Form.Control type="text" placeholder="Enter genre" onChange={(e) => setGenre(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="musicForm">
-                            <Form.Label>Rating</Form.Label>
-                            <Form.Control type="number" placeholder="Enter rating" onChange={(e) => setRating(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="musicForm">
-                            <Form.Label>Review</Form.Label>
-                            <Form.Control type="text" placeholder="Enter review" onChange={(e) => setReview(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="musicForm">
-                            <Form.Label>Album Cover</Form.Label>
-                            <Form.Control type="text" placeholder="Enter album cover" onChange={(e) => setAlbumCover(e.target.value)} />
-                        </Form.Group>
-
-                        <Form.Group controlId="musicForm">
-                            <Form.Label>Soundcloud</Form.Label>
-                            <Form.Control type="text" placeholder="Enter soundcloud" onChange={(e) => setSoundcloud(e.target.value)} />
-                        </Form.Group>
-
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                </div>
-            );
-        }
-
-        //returns a form to be filled out by the user and submitted under the correct review type
+    }
+    //both functions render a form to be filled out by the user and submitted under the correct review type, once that review type has been specifed by the user
+    const renderMovieForm = (e) => {
         return (
-            <Container>
-                <Form.Select aria-label="Review Type" onChange={(e) => setReviewType(e.target.value)}
-                className='mb-3
-                '>
-                    <option value='movie'>Movie</option>
-                    <option value='music'>Music</option>
-                </Form.Select>
-                {reviewType === 'movie' ? renderMovieForm() : renderMusicForm()}
-            </Container>
+            <div>
+                <Form onSubmit={handleSubmit} className='form-input-group'>
+                    <Form.Group controlId="movieForm">
+                        <Form.Label>Movie Title</Form.Label>
+                        <Form.Control type="text" placeholder="Enter movie title" onChange={(e) => setTitle(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="movieForm">
+                        <Form.Label>Genre</Form.Label>
+                        <Form.Control type="text" placeholder="Enter genre" onChange={(e) => setGenre(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="movieForm">
+                        <Form.Label>Rating</Form.Label>
+                        <Form.Control type="number" placeholder="Enter rating" onChange={(e) => setRating(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="movieForm">
+                        <Form.Label>Review</Form.Label>
+                        <Form.Control type="text" placeholder="Enter review" onChange={(e) => setReview(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="movieForm">
+                        <Form.Label>Trailer</Form.Label>
+                        <Form.Control type="text" placeholder="Enter trailer" onChange={(e) => setTrailer(e.target.value)} />
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </div>
         );
     }
 
-    export default AddReviews;
+    const renderMusicForm = (e) => {
+        return (
+            <div>
+                <Form onSubmit={handleSubmit} className="form-input-group">
+                    <Form.Group controlId="musicForm">
+                        <Form.Label>Music Title</Form.Label>
+                        <Form.Control type="text" placeholder="Enter music title" onChange={(e) => setTitle(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="musicForm">
+                        <Form.Label>Artist</Form.Label>
+                        <Form.Control type="text" placeholder="Enter artist" onChange={(e) => setArtist(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="musicForm">
+                        <Form.Label>Genre</Form.Label>
+                        <Form.Control type="text" placeholder="Enter genre" onChange={(e) => setGenre(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="musicForm">
+                        <Form.Label>Rating</Form.Label>
+                        <Form.Control type="number" placeholder="Enter rating" onChange={(e) => setRating(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="musicForm">
+                        <Form.Label>Review</Form.Label>
+                        <Form.Control type="text" placeholder="Enter review" onChange={(e) => setReview(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="musicForm">
+                        <Form.Label>Album Cover</Form.Label>
+                        <Form.Control type="text" placeholder="Enter album cover" onChange={(e) => setAlbumCover(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group controlId="musicForm">
+                        <Form.Label>Soundcloud</Form.Label>
+                        <Form.Control type="text" placeholder="Enter soundcloud" onChange={(e) => setSoundcloud(e.target.value)} />
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </div>
+        );
+    }
+
+    //returns a form to be filled out by the user and submitted under the correct review type
+    return (
+        <Container>
+            <Form.Select aria-label="Review Type" onChange={(e) => setReviewType(e.target.value)}
+                className='mb-3
+                '>
+                <option value='movie'>Movie</option>
+                <option value='music'>Music</option>
+            </Form.Select>
+            {reviewType === 'movie' ? renderMovieForm() : renderMusicForm()}
+        </Container>
+    );
+}
+
+export default AddReviews;

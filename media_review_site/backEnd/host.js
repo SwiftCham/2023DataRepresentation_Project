@@ -160,9 +160,9 @@ app.get('/api/getMusicReviews', async (req, res) => {
 app.put('/api/updateMusicReview/:id', async (req, res) => {
     try {
         const updatedReview = await MusicReviewModel.findByIdAndUpdate(
-            req.params.id, // Get the ID from the URL parameters
-            req.body, // Use the body of the request for the update
-            { new: true } // Return the updated document
+            req.params.id, //Get the ID from the URL parameters
+            req.body,
+            { new: true } //Return the updated document
         );
         if (!updatedReview) {
             return res.status(404).send('No review with that ID found.'); //if no review found, send error
@@ -179,7 +179,7 @@ app.delete('/api/deleteMusicReview/:id', async (req, res) => {
     try {
         const deletedReview = await MusicReviewModel.findByIdAndDelete( //find and delete music review based on ID
             req.params.id, // Get the ID from the URL parameters
-            req.body, // Use the body of the request for the update
+            req.body,
             { new: true } // Return the updated document
         );
         if (!deletedReview) {
